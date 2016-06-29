@@ -26,7 +26,7 @@ a {
 <script type="text/javascript" src="//rawgithub.com/strukturag/libde265.js/master/lib/libde265.min.js"></script>
 <script>
 <!--
-var VIDEO_URL = "https://strukturag.github.io/libde265.js/spreedmovie.hevc";
+var videoUrl = "https://strukturag.github.io/libde265.js/spreedmovie.hevc";
 
 var player = null;
 
@@ -62,14 +62,26 @@ window.onload = function() {
                 status.innerHTML = msg;
             }
         });
-        player.playback(VIDEO_URL);
+        player.playback(videoUrl);
     };
+
+    var updateVideoUrl = function(event) {
+        videoUrl = event.target.value;
+    }
+
 
     var button = document.getElementById("play");
     if (button.addEventListener) {
         button.addEventListener("click", playback, false);
     } else if (button.attachEvent){
         button.attachEvent('onclick', playback);
+    }
+
+    var input = document.getElementById("movieUrl");
+    if (input.addEventListener) {
+        input.addEventListener("keyup", updateVideoUrl, false);
+    } else if (input.attachEvent){
+        input.attachEvent('onkeyup', updateVideoUrl);
     }
 };
 -->
@@ -82,6 +94,7 @@ window.onload = function() {
         <div><small>Copyright &copy; 2014 by <a href="http://www.struktur.de">struktur AG</a></small></div>
         <canvas id="video" width="0" height="0"></canvas>
     </div>
+    <input width="80%" placeholder="Movie URL" id=movieUrl style="width:400px" autofocus></input>
     <button id="play">Play</button>
     <span id="status"></span>
 </body>
